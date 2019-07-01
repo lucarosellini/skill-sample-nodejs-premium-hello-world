@@ -1,0 +1,50 @@
+{
+  "version": "1.0",
+  "type": "ENTITLEMENT",
+  "referenceName": "Greetings_Pack",
+  "publishingInformation": {
+    "locales": {
+      "en-US": {
+        "name": "Greetings Pack",
+        "summary": "The Greetings Pack says hello in a variety of languages like French, Spanish, Hindi, and more.",
+        "description": "The Greetings Pack says hello in a variety of languages like French, Spanish, Hindi, and more.",
+        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/b4da/b16b662c3e5c43c5b539a3161115e200/APP_ICON?versionId=2nb9t.zHzDj6rsaNh0Y6YyeEG.4t_QXg&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190628T161333Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=0c627916744824c2903c5274d54b1ce831644c05ec73020b72856cd654196ccd",
+        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/e3b1/0a2c20d0f6ce46c599e5630d778656dd/APP_ICON_LARGE?versionId=p.33073LjFWqVKGxofxLXvcgOszBKOJ5&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190628T161333Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=9196c2b975b28bf68927914a5a8de8affaf0a35a435ae00da2c944f9837eacb7",
+        "examplePhrases": [
+          "Alexa, buy greetings pack"
+        ],
+        "keywords": [
+          "greetings"
+        ],
+        "customProductPrompts": {
+          "purchasePromptDescription": "The Greetings Pack says hello in a variety of languages like French, Spanish, Hindi, and more.",
+          "boughtCardDescription": "You now have the Greetings Pack, which says hello in a variety of languages like French, Spanish, Hindi, and more."
+        }
+      }
+    },
+    "distributionCountries": [
+      "US"
+    ],
+    "pricing": {
+      "amazon.com": {
+        "releaseDate": "2019-06-28T00:00Z",
+        "defaultPriceListing": {
+          "price": 0.99,
+          "currency": "USD"
+        }
+      }
+    },
+    "taxInformation": {
+      "category": "SOFTWARE"
+    }
+  },
+  "privacyAndCompliance": {
+    "locales": {
+      "en-US": {
+        "privacyPolicyUrl": "http://www.amazon.com/privacy"
+      }
+    }
+  },
+  "testingInstructions": "TODO: REPLACE THIS WITH TESTING INSTRUCTIONS FOR THE CERTIFICATION TEAM SO THEY KNOW HOW TO PURCHASE AND USE THIS PRODUCT",
+  "purchasableState": "PURCHASABLE"
+}

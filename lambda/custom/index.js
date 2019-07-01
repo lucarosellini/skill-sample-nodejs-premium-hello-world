@@ -44,11 +44,13 @@ const NoIntentHandler = {
     );
   },
   handle(handlerInput) {
-    const speechText = getRandomGoodbye();
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .getResponse();
-  },
+    const locale = handlerInput.requestEnvelope.request.locale;
+    const monetizationClient = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+
+    return monetizationClient.getInSkillProducts(locale).then((res) => {
+      return getPremiumOrRandomGoodbye(handlerInput, res);
+    });
+  }
 };
 
 // Respond to the utterance "what can I buy"
@@ -125,6 +127,39 @@ const TellMeMoreAboutGreetingsPackIntentHandler = {
       // Make the upsell
       const speechText = 'Sure.';
       return makeUpsell(speechText, greetingsPackProduct, handlerInput);
+    });
+  },
+};
+
+const TellMeMoreAboutGoodbyesPackIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+           && handlerInput.requestEnvelope.request.intent.name === 'TellMeMoreAboutGoodbyesPack';
+  },
+  handle(handlerInput) {
+    const locale = handlerInput.requestEnvelope.request.locale;
+    const monetizationClient = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+
+    return monetizationClient.getInSkillProducts(locale).then((res) => {
+      // Filter the list of products available for purchase to find the product with the reference name "Greetings_Pack"
+      const goodbyesPackProduct = res.inSkillProducts.filter(
+        record => record.referenceName === 'Goodbyes_Pack',
+      );
+
+      if (getGoodbyesCount(handlerInput, goodbyesPackProduct) > 0) {
+        // Customer has bought the Greetings Pack. They don't need to buy the Goodbyes Pack.
+        const speechText = `Good News! You're subscribed to the Goodbyes Pack. ${getRandomYesNoQuestion()}`;
+        const repromptOutput = `${getRandomYesNoQuestion()}`;
+
+        return handlerInput.responseBuilder
+          .speak(speechText)
+          .reprompt(repromptOutput)
+          .getResponse();
+      }
+      
+      // Make the upsell
+      const speechText = 'Sure.';
+      return makeUpsell(speechText, goodbyesPackProduct, handlerInput);
     });
   },
 };
@@ -207,6 +242,38 @@ const BuyGreetingsPackIntentHandler = {
       // Customer has bought neither the Premium Subscription nor the Greetings Pack Product.
       // Make the buy offer for Greetings Pack
       return makeBuyOffer(greetingsPackProduct, handlerInput);
+    });
+  },
+};
+
+const BuyGoodbyesPackIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest'
+           && handlerInput.requestEnvelope.request.intent.name === 'BuyGoodbyesPackIntent';
+  },
+  handle(handlerInput) {
+    const locale = handlerInput.requestEnvelope.request.locale;
+    const monetizationClient = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+
+    return monetizationClient.getInSkillProducts(locale).then((res) => {
+      // Filter the list of products available for purchase to find the product with the reference name "Greetings_Pack"
+      const goodbyesPackProduct = res.inSkillProducts.filter(
+        record => record.referenceName === 'Goodbyes_Pack',
+      );
+
+      if (isEntitled(goodbyesPackProduct)) {
+        // Customer has bought the Greetings Pack. Deliver the special greetings
+        const speechText = `Good News! You've already bought the Goodbyes Pack. ${getRandomYesNoQuestion()}`;
+        const repromptOutput = `${getRandomYesNoQuestion()}`;
+
+        return handlerInput.responseBuilder
+          .speak(speechText)
+          .reprompt(repromptOutput)
+          .getResponse();
+      }
+      // Customer has bought neither the Premium Subscription nor the Greetings Pack Product.
+      // Make the buy offer for Greetings Pack
+      return makeBuyOffer(goodbyesPackProduct, handlerInput);
     });
   },
 };
@@ -391,11 +458,42 @@ const RefundGreetingsPackIntentHandler = {
   },
 };
 
-const CancelPremiumSubscriptionIntentHandler = {
+const RefundGoodbyesPackIntentHandler = {
   canHandle(handlerInput) {
     return (
       handlerInput.requestEnvelope.request.type === 'IntentRequest'
-      && handlerInput.requestEnvelope.request.intent.name === 'CancelPremiumSubscriptionIntent'
+      && handlerInput.requestEnvelope.request.intent.name === 'RefundGoodbyesPackIntent'
+    );
+  },
+  handle(handlerInput) {
+    const locale = handlerInput.requestEnvelope.request.locale;
+    const monetizationClient = handlerInput.serviceClientFactory.getMonetizationServiceClient();
+
+    return monetizationClient.getInSkillProducts(locale).then((res) => {
+      const premiumProduct = res.inSkillProducts.filter(
+        record => record.referenceName === 'Goodbyes_Pack',
+      );
+      return handlerInput.responseBuilder
+        .addDirective({
+          type: 'Connections.SendRequest',
+          name: 'Cancel',
+          payload: {
+            InSkillProduct: {
+              productId: premiumProduct[0].productId,
+            },
+          },
+          token: 'correlationToken',
+        })
+        .getResponse();
+    });
+  },
+};
+
+const RefundPremiumSubscriptionIntentHandler = {
+  canHandle(handlerInput) {
+    return (
+      handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'RefundPremiumSubscriptionIntent'
     );
   },
   handle(handlerInput) {
@@ -505,12 +603,13 @@ const CancelAndStopIntentHandler = {
         || handlerInput.requestEnvelope.request.intent.name === 'AMAZON.StopIntent');
   },
   handle(handlerInput) {
-    const speechText = getRandomGoodbye();
+    
+    const locale = handlerInput.requestEnvelope.request.locale;
+    const monetizationClient = handlerInput.serviceClientFactory.getMonetizationServiceClient();
 
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .withSimpleCard(skillName, speechText)
-      .getResponse();
+    return monetizationClient.getInSkillProducts(locale).then((res) => {
+      return getPremiumOrRandomGoodbye(handlerInput, res);
+    });
   },
 };
 
@@ -555,6 +654,30 @@ function getSimpleHello() {
   ];
 }
 
+function getSpecialGoodbye() {
+  const specialGoodbyes = [
+    {
+      language: 'hindi', greeting: 'alavida', locale: 'en-IN', voice: ['Aditi', 'Raveena'],
+    },
+    {
+      language: 'german', greeting: 'auf wiedersehen', locale: 'de-DE', voice: ['Hans', 'Marlene', 'Vicki'],
+    },
+    {
+      language: 'spanish', greeting: 'hasta luego', locale: 'es-ES', voice: ['Conchita', 'Enrique'],
+    },
+    {
+      language: 'french', greeting: 'au revoir', locale: 'fr-FR', voice: ['Celine', 'Lea', 'Mathieu'],
+    },
+    {
+      language: 'japanese', greeting: 'sayonara', locale: 'ja-JP', voice: ['Mizuki', 'Takumi'],
+    },
+    {
+      language: 'italian', greeting: 'arrivederci', locale: 'it-IT', voice: ['Carla', 'Giorgio'],
+    },
+  ];
+  return randomize(specialGoodbyes);
+}
+
 function getSpecialHello() {
   const specialGreetings = [
     {
@@ -579,13 +702,60 @@ function getSpecialHello() {
   return randomize(specialGreetings);
 }
 
-function getRandomGoodbye() {
-  const goodbyes = [
-    'OK.  Goodbye!',
-    'Have a great day!',
-    'Come back again soon!',
-  ];
-  return randomize(goodbyes);
+function getGoodbyesCount(handlerInput, goodbyesPackProduct){
+  const {attributesManager} = handlerInput;
+  const sessionAttributes = attributesManager.getSessionAttributes();
+      
+  const activeEntitlementCount = parseInt(goodbyesPackProduct.activeEntitlementCount) || 0;
+  const goodbyesUsed = parseInt(sessionAttributes.goodbyesUsed) || 0;
+  const goodbyesAvailable = Math.max(0, activeEntitlementCount * 3 - goodbyesUsed);
+  
+  if (goodbyesAvailable > 0){
+    sessionAttributes.goodbyesUsed = goodbyesUsed + 1;
+    attributesManager.setSessionAttributes(sessionAttributes);
+  }
+  return goodbyesAvailable;
+}
+
+function getPremiumOrRandomGoodbye(handlerInput, res) {
+
+  const goodbyesPackProduct = res.inSkillProducts.filter(
+    record => record.referenceName === 'Goodbyes_Pack',
+  )[0];
+
+  console.log(
+    `GOODBYES PACK PRODUCT = ${JSON.stringify(goodbyesPackProduct)}`,
+  );
+
+  const availableGoodbyes = getGoodbyesCount(handlerInput, goodbyesPackProduct);
+
+  let speechText;
+
+  if (availableGoodbyes > 0){
+
+    const specialGoodbye = getSpecialGoodbye();
+    const preGoodbyeSpeechText = `Here's your special goodbye: `;
+    const postGoodbyeSpeechText = `That's goodbye in ${specialGoodbye.language}.`;
+    const langSpecialGoodbye = switchLanguage(`${specialGoodbye.greeting}!`, specialGoodbye.locale);
+    cardText = `${preGoodbyeSpeechText} ${specialGoodbye.greeting} ${postGoodbyeSpeechText}`;
+    const randomVoice = randomize(specialGoodbye.voice);
+    speechText = `${preGoodbyeSpeechText} ${switchVoice(langSpecialGoodbye, randomVoice)} ${postGoodbyeSpeechText}.`;
+
+  } else {
+    console.log("No premium goodbyes available");
+    const goodbyes = [
+      'OK.  Goodbye!',
+      'Have a great day!',
+      'Come back again soon!',
+    ];
+    speechText = randomize(goodbyes);
+  }
+
+  return handlerInput.responseBuilder
+    .speak(speechText)
+    .withShouldEndSession(true)
+    .getResponse();
+
 }
 
 function getRandomYesNoQuestion() {
@@ -613,6 +783,7 @@ function getSpeakableListOfProducts(entitleProductsList) {
   productListSpeech = productListSpeech.replace(/_([^_]*)$/, 'and $1'); // Replace last comma with an 'and '
   return productListSpeech;
 }
+
 
 function getResponseBasedOnAccessType(handlerInput, res, preSpeechText) {
   // The filter() method creates a new array with all elements that pass the test implemented by the provided function.
@@ -769,6 +940,33 @@ const LogRequestInterceptor = {
   },
 };
 
+
+const LoadAttributesRequestInterceptor = {
+  async process(handlerInput) {
+      const {attributesManager, requestEnvelope} = handlerInput;
+      if(requestEnvelope.session['new']){ //is this a new session? this check is not enough if using auto-delegate
+          const persistentAttributes = await attributesManager.getPersistentAttributes() || {};
+          console.log("Retrieved persistentAttributes: " + JSON.stringify(persistentAttributes));
+          //copy persistent attribute to session attributes
+          attributesManager.setSessionAttributes(persistentAttributes);
+      }
+  }
+};
+
+const SaveAttributesResponseInterceptor = {
+  async process(handlerInput, response) {
+      if(!response) return; // avoid intercepting calls that have no outgoing response due to errors
+      const {attributesManager, requestEnvelope} = handlerInput;
+      const sessionAttributes = attributesManager.getSessionAttributes();
+      const shouldEndSession = (typeof response.shouldEndSession === "undefined" ? true : response.shouldEndSession); //is this a session end?
+      if(shouldEndSession || requestEnvelope.request.type === 'SessionEndedRequest') { // skill was stopped or timed out
+          attributesManager.setPersistentAttributes(sessionAttributes);
+          console.log("Saving persistent attributes: " + JSON.stringify(sessionAttributes));
+          await attributesManager.savePersistentAttributes();
+      }
+  }
+};
+
 const skillBuilder = Alexa.SkillBuilders.standard();
 
 exports.handler = skillBuilder
@@ -779,19 +977,24 @@ exports.handler = skillBuilder
     WhatCanIBuyIntentHandler,
     TellMeMoreAboutGreetingsPackIntentHandler,
     TellMeMoreAboutPremiumSubscriptionIntentHandler,
+    TellMeMoreAboutGoodbyesPackIntentHandler,
     BuyGreetingsPackIntentHandler,
     GetSpecialGreetingsIntentHandler,
     BuyPremiumSubscriptionIntentHandler,
+    BuyGoodbyesPackIntentHandler,
     BuyResponseHandler,
     PurchaseHistoryIntentHandler,
     RefundGreetingsPackIntentHandler,
-    CancelPremiumSubscriptionIntentHandler,
+    RefundPremiumSubscriptionIntentHandler,
+    RefundGoodbyesPackIntentHandler,
     CancelProductResponseHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler,
   )
   .addErrorHandlers(ErrorHandler)
-  .addRequestInterceptors(LogRequestInterceptor)
-  .addResponseInterceptors(LogResponseInterceptor)
+  .addRequestInterceptors(LogRequestInterceptor, LoadAttributesRequestInterceptor)
+  .addResponseInterceptors(LogResponseInterceptor, SaveAttributesResponseInterceptor)
+  .withTableName("premium-hello-world")
+  .withAutoCreateTable(true)
   .lambda();

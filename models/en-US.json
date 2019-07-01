@@ -63,6 +63,18 @@
                     ]
                 },
                 {
+                    "name": "BuyGoodbyesPackIntent",
+                    "slots": [],
+                    "samples": [
+                        "give me special goodbyes",
+                        "special goodbyes",
+                        "say goodbye in other languages",
+                        "Get goodbyes pack",
+                        "Get goodbye pack",
+                        "Buy goodbyes pack"
+                    ]
+                },
+                {
                     "name": "PurchaseHistoryIntent",
                     "slots": [],
                     "samples": [
@@ -78,6 +90,13 @@
                         "tell me more about premium subscription",
                         "what is premium subscription"
                     ]
+                },{
+                    "name": "TellMeMoreAboutGoodbyesPack",
+                    "slots": [],
+                    "samples": [
+                        "tell me more about goodbyes pack",
+                        "what is goodbyes pack"
+                    ]
                 },
                 {
                     "name": "BuyPremiumSubscriptionIntent",
@@ -88,7 +107,7 @@
                     ]
                 },
                 {
-                    "name": "CancelPremiumSubscriptionIntent",
+                    "name": "RefundPremiumSubscriptionIntent",
                     "slots": [],
                     "samples": [
                         "refund subscription",
@@ -103,6 +122,15 @@
                         "return greetings pack",
                         "refund greetings pack",
                         "cancel greetings pack"
+                    ]
+                },
+                {
+                    "name": "RefundGoodbyesPackIntent",
+                    "slots": [],
+                    "samples": [
+                        "return goodbyes pack",
+                        "refund goodbyes pack",
+                        "cancel goodbyes pack"
                     ]
                 }
             ],
