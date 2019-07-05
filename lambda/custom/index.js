@@ -146,6 +146,10 @@ const TellMeMoreAboutGoodbyesPackIntentHandler = {
         record => record.referenceName === 'Goodbyes_Pack',
       );
 
+      console.log(
+        `GOODBYES PACK PRODUCT = ${JSON.stringify(goodbyesPackProduct)}`,
+      );
+
       if (getGoodbyesCount(handlerInput, goodbyesPackProduct) > 0) {
         // Customer has bought the Greetings Pack. They don't need to buy the Goodbyes Pack.
         const speechText = `Good News! You're subscribed to the Goodbyes Pack. ${getRandomYesNoQuestion()}`;
@@ -702,11 +706,12 @@ function getSpecialHello() {
   return randomize(specialGreetings);
 }
 
-function getGoodbyesCount(handlerInput, goodbyesPackProduct){
+function getGoodbyesCount(handlerInput, goodbyesPackProduct){  
+
   const {attributesManager} = handlerInput;
   const sessionAttributes = attributesManager.getSessionAttributes();
       
-  const activeEntitlementCount = parseInt(goodbyesPackProduct.activeEntitlementCount) || 0;
+  const activeEntitlementCount = goodbyesPackProduct[0] ? goodbyesPackProduct[0].activeEntitlementCount : 0;
   const goodbyesUsed = parseInt(sessionAttributes.goodbyesUsed) || 0;
   const goodbyesAvailable = Math.max(0, activeEntitlementCount * 3 - goodbyesUsed);
   
@@ -715,19 +720,21 @@ function getGoodbyesCount(handlerInput, goodbyesPackProduct){
     attributesManager.setSessionAttributes(sessionAttributes);
   }
   return goodbyesAvailable;
+  
+  
 }
 
 function getPremiumOrRandomGoodbye(handlerInput, res) {
 
   const goodbyesPackProduct = res.inSkillProducts.filter(
     record => record.referenceName === 'Goodbyes_Pack',
-  )[0];
+  );
 
   console.log(
     `GOODBYES PACK PRODUCT = ${JSON.stringify(goodbyesPackProduct)}`,
   );
 
-  const availableGoodbyes = getGoodbyesCount(handlerInput, goodbyesPackProduct);
+  const availableGoodbyes = parseInt(getGoodbyesCount(handlerInput, goodbyesPackProduct)) || 0;
 
   let speechText;
 
