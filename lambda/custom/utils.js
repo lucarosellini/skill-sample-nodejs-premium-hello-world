@@ -82,6 +82,20 @@ function getGoodbyesCount(handlerInput, goodbyesPackProduct){
   
 }
 
+function getRandomGoodbye(handlerInput){
+  const goodbyes = [
+    'OK.  Goodbye!',
+    'Have a great day!',
+    'Come back again soon!',
+  ];
+  const speechText = randomize(goodbyes);
+
+  return handlerInput.responseBuilder
+    .speak(speechText)
+    .withShouldEndSession(true)
+    .getResponse();
+}
+
 function getPremiumOrRandomGoodbye(handlerInput, res) {
 
   const goodbyesPackProduct = res.inSkillProducts.filter(
@@ -205,6 +219,19 @@ function getResponseBasedOnAccessType(handlerInput, res, preSpeechText) {
     repromptOutput = `${getRandomYesNoQuestion()}`;
   }
 
+  return handlerInput.responseBuilder
+    .speak(speechText)
+    .reprompt(repromptOutput)
+    .withSimpleCard(skillName, cardText)
+    .getResponse();
+}
+
+function getSimpleGreeting(handlerInput){
+  const theGreeting = getSimpleHello();
+  const cardText = `Here's your simple greeting: ${theGreeting}.`;
+  const speechText = `Here's your simple greeting: ${theGreeting}. ${getRandomYesNoQuestion()}`;
+  const repromptOutput = `${getRandomYesNoQuestion()}`;
+  
   return handlerInput.responseBuilder
     .speak(speechText)
     .reprompt(repromptOutput)
@@ -348,11 +375,11 @@ module.exports = {
     getBuyResponseText,
     switchLanguage,
     switchVoice,
-    getResponseBasedOnAccessType,
+    getSimpleGreeting,
     getSpeakableListOfProducts,
     getRandomLearnMorePrompt,
     getRandomYesNoQuestion,
-    getPremiumOrRandomGoodbye,
+    getRandomGoodbye,
     getGoodbyesCount,
     getSpecialHello,
     getSpecialGoodbye,
