@@ -12,8 +12,8 @@
         "name": "Premium Subscription",
         "summary": "The Premium Subscription greets the user in a variety of voices.",
         "description": "The Premium Subscription Pack unlocks the magic of Polly Voice, and greets you in a variety of languages, like hindi, spanish, italian, and more.",
-        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/7362/536e88c714ec47c48ab019e200cdaff4/APP_ICON?versionId=8_UaS4vaGVlnGdVGyLXV0bwTyge0h7Ma&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190628T161335Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=a44fcd1f073b42b4a0180a484a4c22bc937ecb4f609d3bf54ee501e2d35f6d36",
-        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/a26b/d19f69152c58454994388ea01b5bb0f4/APP_ICON_LARGE?versionId=VOAs2rhJ5e8v0HLVJzMszE58_.A8cEr8&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190628T161335Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=1a592229fd7c52e70ae4254ff3b7b8ddca9251d9c1d3fcc05f26f8295b4e3c49",
+        "smallIconUri": "https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png",
+        "largeIconUri": "https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png",
         "examplePhrases": [
           "Alexa, buy premium subscription"
         ],
