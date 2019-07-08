@@ -206,11 +206,11 @@ function getResponseBasedOnAccessType(handlerInput, res, preSpeechText) {
     // Customer has bought neither the Premium Subscription nor the Greetings Pack Product.
     const theGreeting = getSimpleHello();
     // Determine if upsell should be made. returns true/false
-    if (shouldUpsell(handlerInput) && greetingsPackProduct[0]) {
-      console.log("Triggering upsell" + JSON.stringify(greetingsPackProduct));
+    if (shouldUpsell(handlerInput) && premiumSubscriptionProduct[0]) {
+      console.log("Triggering upsell" + JSON.stringify(premiumSubscriptionProduct));
       // Say the simple greeting, and then Upsell Greetings Pack
       speechText = `Here's your simple greeting: ${theGreeting}. By the way, you can now get greetings in more languages.`;
-      return makeUpsell(speechText, greetingsPackProduct, handlerInput);
+      return makeUpsell(speechText, premiumSubscriptionProduct, handlerInput);
     }
 
     // Do not make the upsell. Just return Simple Hello Greeting.
