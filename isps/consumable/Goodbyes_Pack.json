@@ -8,8 +8,13 @@
         "name": "Goodbyes Pack",
         "summary": "The Goodbyes Pack says goodbye in a variety of languages like French, Spanish, Hindi, and more.",
         "description": "The Goodbyes Pack says goodbye in a variety of languages like French, Spanish, Hindi, and more.",
+<<<<<<< HEAD
         "smallIconUri": "https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png",
         "largeIconUri": "https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png",
+=======
+        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/f8db/ea493cd0ac98413aa40a8e29f0553ac1/APP_ICON?versionId=zpXQu_cHl0q7SC4wFCvbu2KnrNzZo3Qn&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190705T071653Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190705%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=8862a56228f48592546431f6df251c985e5a15bca1a4caa4a5db00101dd4b94a",
+        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/c641/c77798fc22994630af6b828693596a42/APP_ICON_LARGE?versionId=BNWQVmdjas5XPqGRTtpwZmteB8mLWj50&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190705T071653Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190705%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=f2aacddb8522ac0af578a2c7101432094b6e126416f1528a0a3953a36f240017",
+>>>>>>> 05402a85daa9b380e1eb2d9ba3b909f75cc393dc
         "examplePhrases": [
           "Alexa, buy greetings pack"
         ],
