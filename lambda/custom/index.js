@@ -1,11 +1,22 @@
 const Alexa = require('ask-sdk');
 
-const {
+const {isEntitled,
+  makeUpsell,
+  getAllEntitledProducts,
+  makeBuyOffer,
+  SaveAttributesResponseInterceptor,
+  LoadAttributesRequestInterceptor,
   LogRequestInterceptor,
   LogResponseInterceptor,
+  getBuyResponseText,
+  getResponseBasedOnAccessType,
+  getSpeakableListOfProducts,
+  getRandomYesNoQuestion,
+  getPremiumOrRandomGoodbye,
+  getGoodbyesCount,
+  skillName,
   getSimpleGreeting,
-  getRandomGoodbye,
-  skillName} = require("./utils");
+  getRandomGoodbye} = require("./utils");
 
 const LaunchRequestHandler = {
   canHandle(handlerInput) {
