@@ -385,5 +385,6 @@ module.exports = {
     getSpecialGoodbye,
     getSimpleHello,
     randomize,
-    skillName
+    skillName,
+    getResponseBasedOnAccessType
 }
