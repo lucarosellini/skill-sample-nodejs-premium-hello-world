@@ -94,6 +94,6 @@ Check how consumables are handled in the ```master``` branch, make sure you get 
 
 ### Additiona links
 
-You can find a more complete version of the skill having OTP, Consumables and Subscription at: https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world
+You can find a more complete version of the skill having OTP (One-Time-Purchases), Consumables and Subscription at: https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world
 
 You might find interesting check the code of the skill [expensive-pixels](https://github.com/muttoni/expensive-pixels). This skill takes a professional approach at structuring the skill code and the ISP products. 
