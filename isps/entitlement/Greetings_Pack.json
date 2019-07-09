@@ -8,13 +8,8 @@
         "name": "Greetings Pack",
         "summary": "The Greetings Pack says hello in a variety of languages like French, Spanish, Hindi, and more.",
         "description": "The Greetings Pack says hello in a variety of languages like French, Spanish, Hindi, and more.",
-<<<<<<< HEAD
         "smallIconUri": "https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_108.png",
         "largeIconUri": "https://s3.amazonaws.com/ask-samples-resources/icons/moneyicon_512.png",
-=======
-        "smallIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/3b98/777cec1c81014755ba8ca43972b7b389/APP_ICON?versionId=KQqUJ.KPuqbvCz8BGkiK8tdLEUNBUbEC&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190705T071655Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190705%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=8f5f5fcda5d59af57ec5d47ed7b9e99ddafce97661b124af1e6665975c7c3fe8",
-        "largeIconUri": "https://s3.amazonaws.com/CAPS-SSE/echo_developer/394f/b8f17990422649a5b1b817769d1ac826/APP_ICON_LARGE?versionId=adU2cFIXqiZ8Eqymi704gNSNMrvDUkVW&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20190705T071655Z&X-Amz-SignedHeaders=host&X-Amz-Expires=86400&X-Amz-Credential=AKIAJFEYRBGIHK2BBYKA%2F20190705%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=6b223dacf3d7fa727845c6ba1475a2e3fa84e92e85311b2f05cc4b84f6ac6eb4",
->>>>>>> 05402a85daa9b380e1eb2d9ba3b909f75cc393dc
         "examplePhrases": [
           "Alexa, buy greetings pack"
         ],
