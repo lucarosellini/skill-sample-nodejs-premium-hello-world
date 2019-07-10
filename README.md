@@ -37,7 +37,7 @@ Finally, we will briefly overview the differences at handling consumables.
 * Execute the following command from the console:
 <p>
 
-    ask add isp
+    ask add isp [-p us_profile]
 
 Choose 'Subscription' as the template and call the product ```Premium_Subscription```.
 
@@ -92,7 +92,7 @@ Check how consumables are handled in the ```master``` branch, make sure you get 
 3. In order to store between session the number of used consumbles, you need to use a persistent attributes. Check how [```LoadAttributesRequestInterceptor```](https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world/blob/master/lambda/custom/utils.js#L310) and [```SaveAttributesResponseInterceptor```](https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world/blob/master/lambda/custom/utils.js#L322).
 4. Look at how the logic is merged into the skill flow in the [```NoIntentHandler```](https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world/blob/master/lambda/custom/index.js#L53) and [```CancelAndStopIntentHandler```](https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world/blob/master/lambda/custom/index.js#L617). 
 
-### Additiona links
+### Additional links
 
 You can find a more complete version of the skill having OTP (One-Time-Purchases), Consumables and Subscription at: https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world
 
