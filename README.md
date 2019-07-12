@@ -8,6 +8,8 @@ The ISP product will be added intent by intent, analyzing the backend code and t
 
 Finally, we will briefly overview the differences at handling consumables.
 
+If you are using multiple ASK profiles, make sure all the below interactions always contain the ```-p [profile_name]``` option, otherwise different commands will be executed on different profiles.
+
 ### Setup 
 
 * Clone github repo and switch to ```no-isp``` branch: 
@@ -97,3 +99,5 @@ Check how consumables are handled in the ```master``` branch, make sure you get 
 You can find a more complete version of the skill having OTP (One-Time-Purchases), Consumables and Subscription at: https://github.com/lucarosellini/skill-sample-nodejs-premium-hello-world
 
 You might find interesting check the code of the skill [expensive-pixels](https://github.com/muttoni/expensive-pixels). This skill takes a professional approach at structuring the skill code and the ISP products. 
+
+Finally, the [ISP certification guide](https://developer.amazon.com/docs/in-skill-purchase/isp-certification-guide.html) gives valuable insight on how the certification team will test your ISPs.
