@@ -259,7 +259,20 @@ const BuyGreetingsPackIntentHandler = {
       }
       // Customer has bought neither the Premium Subscription nor the Greetings Pack Product.
       // Make the buy offer for Greetings Pack
-      return makeBuyOffer(greetingsPackProduct, handlerInput);
+
+      
+      if (greetingsPackProduct.length > 0){
+        return makeBuyOffer(greetingsPackProduct, handlerInput);
+      } else {
+        const speechText = `There are no products to offer to you right now. Sorry about that. ${getRandomYesNoQuestion()}`;
+        const repromptOutput = `${getRandomYesNoQuestion()}`;
+
+        return handlerInput.responseBuilder
+          .speak(speechText)
+          .reprompt(repromptOutput)
+          .getResponse();
+      }
+      
     });
   },
 };
@@ -291,7 +304,19 @@ const BuyGoodbyesPackIntentHandler = {
       }
       // Customer has bought neither the Premium Subscription nor the Greetings Pack Product.
       // Make the buy offer for Greetings Pack
-      return makeBuyOffer(goodbyesPackProduct, handlerInput);
+
+      if (goodbyesPackProduct.length > 0){
+        return makeBuyOffer(goodbyesPackProduct, handlerInput);
+      } else {
+        const speechText = `There are no products to offer to you right now. Sorry about that. ${getRandomYesNoQuestion()}`;
+        const repromptOutput = `${getRandomYesNoQuestion()}`;
+
+        return handlerInput.responseBuilder
+          .speak(speechText)
+          .reprompt(repromptOutput)
+          .getResponse();
+      }  
+      
     });
   },
 };
@@ -357,8 +382,18 @@ const BuyPremiumSubscriptionIntentHandler = {
         record => record.referenceName === 'Premium_Subscription',
       );
 
-      // Send Connections.SendRequest Directive back to Alexa to switch to Purchase Flow
-      return makeBuyOffer(premiumSubscriptionProduct, handlerInput);
+      if (premiumSubscriptionProduct.length > 0){
+        const speechText = `There are no products to offer to you right now. Sorry about that. ${getRandomYesNoQuestion()}`;
+        const repromptOutput = `${getRandomYesNoQuestion()}`;
+
+        return handlerInput.responseBuilder
+          .speak(speechText)
+          .reprompt(repromptOutput)
+          .getResponse();
+      } else {
+        // Send Connections.SendRequest Directive back to Alexa to switch to Purchase Flow
+        return makeBuyOffer(premiumSubscriptionProduct, handlerInput);
+      }
     });
   },
 };
